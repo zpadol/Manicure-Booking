@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using ManicureBooking.Models;
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<DatabaseContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
