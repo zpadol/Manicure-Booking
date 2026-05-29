@@ -18,12 +18,13 @@ namespace ManicureBooking.Models
         public string ClientEmail { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Numer telefonu jest wymagany.")]
-        [Phone(ErrorMessage = "Niepoprawny numer telefonu.")]
+        [RegularExpression(@"^[0-9]{9}$", ErrorMessage = "Niepoprawny numer telefonu.")] 
         [Display(Name = "Numer telefonu")]
         public string ClientPhone { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Wybór daty i godziny jest wymagany.")]
         [Display(Name = "Data i godzina wizyty")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime AppointmentTime { get; set; }
 
         [Required(ErrorMessage = "Wybór usługi jest wymagany.")]

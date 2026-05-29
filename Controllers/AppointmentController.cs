@@ -40,7 +40,12 @@ namespace ManicureBooking.Controllers
         public IActionResult Create()
         {
             ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "Name");
-            return View(new Appointment());
+            var defaultAppointment = new Appointment
+            {
+                AppointmentTime = DateTime.Now.AddDays(1)
+            };
+
+            return View(defaultAppointment);
         }
 
         // 3. CREATE: Zapisywanie do bazy (POST)
@@ -48,6 +53,11 @@ namespace ManicureBooking.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Appointment appointment)
         {
+            if (appointment.AppointmentTime < DateTime.Now) // sprawdzenie czy data jest z przeszlosci
+            {
+                ModelState.AddModelError("AppointmentTime", "Nie można zarezerwować wizyty na minioną datę ani godzinę!");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Appointments.Add(appointment);
@@ -77,6 +87,11 @@ namespace ManicureBooking.Controllers
         [Authorize]
         public IActionResult Edit(Appointment appointment)
         {
+            if (appointment.AppointmentTime < DateTime.Now)
+            {
+                ModelState.AddModelError("AppointmentTime", "Nie można edytować wizyty na minioną datę!");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Appointments.Update(appointment);
