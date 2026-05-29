@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ManicureBooking.Controllers
 {
@@ -17,6 +18,7 @@ namespace ManicureBooking.Controllers
 
         // 1. READ: Wyświetlanie listy wizyt
         [HttpGet]
+        [Authorize]
         public IActionResult Index()
         {
             var appointments = _context.Appointments.Include(a => a.Service).ToList();
@@ -58,6 +60,7 @@ namespace ManicureBooking.Controllers
 
         // 4. UPDATE: Edycja wizyty (GET - wypełniony formularz)
         [HttpGet]
+        [Authorize]
         public IActionResult Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -71,6 +74,7 @@ namespace ManicureBooking.Controllers
         // 4. UPDATE: Zapisanie zmian (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public IActionResult Edit(Appointment appointment)
         {
             if (ModelState.IsValid)
@@ -85,6 +89,7 @@ namespace ManicureBooking.Controllers
 
         // 5. DELETE: Usuwanie wizyty (GET - ekran potwierdzenia)
         [HttpGet]
+        [Authorize]
         public IActionResult Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -96,6 +101,7 @@ namespace ManicureBooking.Controllers
         // 5. DELETE: Potwierdzenie usunięcia (POST)
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public IActionResult DeleteConfirm(int id)
         {
             var appointment = _context.Appointments.Find(id);

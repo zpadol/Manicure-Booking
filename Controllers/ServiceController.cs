@@ -1,5 +1,6 @@
 ﻿using ManicureBooking.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ManicureBooking.Controllers
 {
@@ -22,6 +23,7 @@ namespace ManicureBooking.Controllers
 
         // 2. CREATE: Dodawanie nowej usługi (GET - pusty formularz)
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
             return View(new Service());
@@ -30,6 +32,7 @@ namespace ManicureBooking.Controllers
         // 2. CREATE: Zapisywanie do bazy (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public IActionResult Create(Service service)
         {
             if (ModelState.IsValid)
@@ -43,6 +46,7 @@ namespace ManicureBooking.Controllers
 
         // 3. UPDATE: Edycja usługi (GET - wypełniony formularz)
         [HttpGet]
+        [Authorize]
         public IActionResult Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -54,6 +58,7 @@ namespace ManicureBooking.Controllers
         // 3. UPDATE: Zapisanie zmian (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public IActionResult Edit(Service service)
         {
             if (ModelState.IsValid)
@@ -67,6 +72,7 @@ namespace ManicureBooking.Controllers
 
         // 4. DELETE: Usuwanie usługi (GET - ekran potwierdzenia)
         [HttpGet]
+        [Authorize]
         public IActionResult Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -78,6 +84,7 @@ namespace ManicureBooking.Controllers
         // 4. DELETE: Potwierdzenie usunięcia (POST)
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public IActionResult DeleteConfirm(int id)
         {
             var service = _context.Services.FirstOrDefault(s => s.ServiceId == id);
