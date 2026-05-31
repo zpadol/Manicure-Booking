@@ -20,14 +20,27 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Strona główna</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Service" asp-action="Index">Usługi i Cennik</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Zarządzanie wizytami</a>
-                        </li>
+
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item ms-auto">
+                                <a class="nav-link text-danger fw-bold" asp-area="" asp-controller="Appointment" asp-action="Index">Panel: Zarządzanie wizytami</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Wyloguj się</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-primary fw-bold" asp-area="" asp-controller="Appointment" asp-action="Create">Umów się na wizytę!</a>
+                            </li>
+                            <li class="nav-item ms-auto">
+                                <a class="nav-link text-muted" asp-area="" asp-controller="Account" asp-action="Login">Zaloguj do panelu</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

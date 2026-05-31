@@ -69,8 +69,20 @@ namespace ManicureBooking.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public IActionResult Edit(Service service)
+        public async Task<IActionResult> Edit(Service service, IFormFile? imageFile)
         {
+            if (imageFile != null && imageFile.Length > 0)
+            {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(stream);
+                }
+                service.ImagePath = fileName;
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Services.Update(service);

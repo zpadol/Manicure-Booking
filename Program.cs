@@ -28,6 +28,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseRequestLocalization("pl-PL");
 app.UseRouting();
 
 app.UseAuthentication();
