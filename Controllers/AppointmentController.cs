@@ -53,10 +53,20 @@ namespace ManicureBooking.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Appointment appointment)
         {
+            appointment.Status = "Oczekująca";
+            ModelState.Remove("Status");
             if (appointment.AppointmentTime < DateTime.Now) // sprawdzenie czy data jest z przeszlosci
             {
                 ModelState.AddModelError("AppointmentTime", "Nie można zarezerwować wizyty na minioną datę ani godzinę!");
             }
+
+            bool isTimeTaken = _context.Appointments.Any(a => a.AppointmentTime == appointment.AppointmentTime);
+
+            if (isTimeTaken)
+            {
+                ModelState.AddModelError("AppointmentTime", "Ten termin jest już zajęty.");
+            }
+
 
             if (ModelState.IsValid)
             {
@@ -90,6 +100,12 @@ namespace ManicureBooking.Controllers
             if (appointment.AppointmentTime < DateTime.Now)
             {
                 ModelState.AddModelError("AppointmentTime", "Nie można edytować wizyty na minioną datę!");
+            }
+            bool isTimeTaken = _context.Appointments.Any(a => a.AppointmentTime == appointment.AppointmentTime && a.AppointmentId != appointment.AppointmentId);
+
+            if (isTimeTaken)
+            {
+                ModelState.AddModelError("AppointmentTime", "Ten termin jest już zajęty.");
             }
 
             if (ModelState.IsValid)

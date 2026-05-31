@@ -20,3 +20,15 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+.btn-pastel-blue {
+    background-color: #a7c7e7; 
+    color: #ffffff;
+    border: none; 
+    transition: 0.3s; 
+}
+.btn-pastel-blue:hover {
+    background-color: #8da9c4;
+    color: #ffffff;
+}

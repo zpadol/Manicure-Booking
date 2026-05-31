@@ -5,10 +5,13 @@
 }
 
 <h1>Cennik usług</h1>
+@if (User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        <p>
+            <a asp-action="Create" class="btn btn-success">Dodaj nową usługę</a>
+        </p>
+    }
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Dodaj nową usługę</a>
-</p>
 <table class="table align-middle">
     <thead>
         <tr>
@@ -35,9 +38,18 @@
                 <td>@Html.DisplayFor(modelItem => item.Price)</td>
                 <td>@Html.DisplayFor(modelItem => item.DurationInMinutes)</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ServiceId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ServiceId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ServiceId">Delete</a>
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <div class="d-flex flex-column gap-2">
+                            <a asp-action="Edit" asp-route-id="@item.ServiceId" class="btn btn-sm btn-secondary">Edytuj</a>
+                            <a asp-action="Details" asp-route-id="@item.ServiceId" class="btn btn-sm btn-pastel-blue">Szczegóły</a>
+                            <a asp-action="Delete" asp-route-id="@item.ServiceId" class="btn btn-sm btn-danger">Usuń</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <a asp-action="Details" asp-route-id="@item.ServiceId" class="btn btn-sm btn-pastel-blue">Szczegóły</a>
+                    }
                 </td>
             </tr>
         }
