@@ -22,5 +22,8 @@ namespace ManicureBooking.Models
         [Required(ErrorMessage = "Czas trwania jest wymagany.")]
         [Display(Name = "Czas trwania (min)")]
         public int DurationInMinutes { get; set; }
+
+        [Display(Name = "Zdjęcie usługi")]
+        public string? ImagePath { get; set; }
     }
 }
