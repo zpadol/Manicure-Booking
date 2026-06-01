@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ManicureBooking.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
 </head>
 <body>
     <header>
@@ -60,6 +62,21 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/pl.js"></script>
+    <script>
+        flatpickr("input[type=datetime-local]", {
+            enableTime: true,       
+            time_24hr: true,       
+            minDate: "today",    
+            locale: "pl",          
+            minuteIncrement: 15,
+            minTime: "08:00",      
+            maxTime: "16:00",     
+            defaultHour: 8,        
+            defaultMinute: 0
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

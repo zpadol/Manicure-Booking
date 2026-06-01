@@ -42,7 +42,7 @@ namespace ManicureBooking.Controllers
             ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "Name");
             var defaultAppointment = new Appointment
             {
-                AppointmentTime = DateTime.Now.AddDays(1)
+                AppointmentTime = DateTime.Today.AddDays(1).AddHours(8) // defaultowo 8 rano jutro
             };
 
             return View(defaultAppointment);
@@ -60,11 +60,29 @@ namespace ManicureBooking.Controllers
                 ModelState.AddModelError("AppointmentTime", "Nie można zarezerwować wizyty na minioną datę ani godzinę!");
             }
 
-            bool isTimeTaken = _context.Appointments.Any(a => a.AppointmentTime == appointment.AppointmentTime);
+            var requestedService = _context.Services.Find(appointment.ServiceId);
 
-            if (isTimeTaken)
+            if (requestedService != null)
             {
-                ModelState.AddModelError("AppointmentTime", "Ten termin jest już zajęty.");
+                DateTime newStart = appointment.AppointmentTime;
+                DateTime newEnd = newStart.AddMinutes(requestedService.DurationInMinutes);
+
+                var appointmentsOnThatDay = _context.Appointments
+                    .Include(a => a.Service)
+                    .Where(a => a.AppointmentTime.Date == newStart.Date)
+                    .ToList();
+                bool isTimeTaken = appointmentsOnThatDay.Any(a =>
+                {
+                    DateTime existingStart = a.AppointmentTime;
+                    DateTime existingEnd = existingStart.AddMinutes(a.Service!.DurationInMinutes);
+
+                    return newStart < existingEnd && newEnd > existingStart;
+                });
+
+                if (isTimeTaken)
+                {
+                    ModelState.AddModelError("AppointmentTime", "Termin zajęty.");
+                }
             }
 
 
@@ -101,11 +119,36 @@ namespace ManicureBooking.Controllers
             {
                 ModelState.AddModelError("AppointmentTime", "Nie można edytować wizyty na minioną datę!");
             }
-            bool isTimeTaken = _context.Appointments.Any(a => a.AppointmentTime == appointment.AppointmentTime && a.AppointmentId != appointment.AppointmentId);
+            var requestedService = _context.Services.Find(appointment.ServiceId);
 
-            if (isTimeTaken)
+            if (requestedService != null)
             {
-                ModelState.AddModelError("AppointmentTime", "Ten termin jest już zajęty.");
+                DateTime newStart = appointment.AppointmentTime;
+                DateTime newEnd = newStart.AddMinutes(requestedService.DurationInMinutes);
+
+                var appointmentsOnThatDay = _context.Appointments
+                    .AsNoTracking()
+                    .Include(a => a.Service)
+                    .Where(a => a.AppointmentTime.Date == newStart.Date)
+                    .ToList();
+
+                bool isTimeTaken = appointmentsOnThatDay.Any(a =>
+                {
+                    if (a.AppointmentId == appointment.AppointmentId)
+                    {
+                        return false;
+                    }
+
+                    DateTime existingStart = a.AppointmentTime;
+                    DateTime existingEnd = existingStart.AddMinutes(a.Service!.DurationInMinutes);
+
+                    return newStart < existingEnd && newEnd > existingStart;
+                });
+
+                if (isTimeTaken)
+                {
+                    ModelState.AddModelError("AppointmentTime", "Termin zajęty przez inną wizytę.");
+                }
             }
 
             if (ModelState.IsValid)
