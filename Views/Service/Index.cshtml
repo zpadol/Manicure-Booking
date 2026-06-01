@@ -8,7 +8,7 @@
 @if (User.Identity != null && User.Identity.IsAuthenticated)
     {
         <p>
-            <a asp-action="Create" class="btn btn-success">Dodaj nową usługę</a>
+        <a asp-action="Create" class="btn-hover color-10">Dodaj nową usługę</a>
         </p>
     }
 
@@ -41,14 +41,14 @@
                     @if (User.Identity != null && User.Identity.IsAuthenticated)
                     {
                         <div class="d-flex flex-column gap-2">
-                            <a asp-action="Edit" asp-route-id="@item.ServiceId" class="btn btn-sm btn-secondary">Edytuj</a>
-                            <a asp-action="Details" asp-route-id="@item.ServiceId" class="btn btn-sm btn-pastel-blue">Szczegóły</a>
-                            <a asp-action="Delete" asp-route-id="@item.ServiceId" class="btn btn-sm btn-danger">Usuń</a>
+                            <a asp-action="Edit" asp-route-id="@item.ServiceId" class="btn-hover btn-hover2 color-10">Edytuj</a>
+                            <a asp-action="Details" asp-route-id="@item.ServiceId" class="btn-hover btn-hover2 color-10">Szczegóły</a>
+                            <a asp-action="Delete" asp-route-id="@item.ServiceId" class="btn-hover btn-hover2 color-10">Usuń</a>
                         </div>
                     }
                     else
                     {
-                        <a asp-action="Details" asp-route-id="@item.ServiceId" class="btn btn-sm btn-pastel-blue">Szczegóły</a>
+                        <a asp-action="Details" asp-route-id="@item.ServiceId" class="btn-hover btn-hover2 color-10">Szczegóły</a>
                     }
                 </td>
             </tr>

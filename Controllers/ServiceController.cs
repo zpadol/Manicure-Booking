@@ -126,5 +126,21 @@ namespace ManicureBooking.Controllers
             if (service == null) return NotFound();
             return View(service);
         }
+        [HttpGet]
+        public IActionResult GetServiceDetails(int id)
+        {
+            var service = _context.Services.Find(id);
+            if (service == null)
+            {
+                return NotFound();
+            }
+            return Json(new
+            {
+                description = service.Description,
+                price = service.Price,
+                duration = service.DurationInMinutes,
+                imagePath = service.ImagePath
+            });
+        }
     }
 }

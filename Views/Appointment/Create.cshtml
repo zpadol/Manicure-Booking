@@ -35,8 +35,25 @@
                 <label asp-for="ServiceId" class="control-label"></label>
                 <select asp-for="ServiceId" class ="form-control" asp-items="ViewBag.ServiceId"></select>
             </div>
+            <div id="serviceDetailsCard" class="card mb-3 border-primary" style="display: none;">
+                <div class="card-body row">
+                    <div class="col-md-4 d-flex align-items-center justify-content-center" id="serviceImageContainer">
+                    </div>
+                    <div class="col-md-8">
+                        <h5 class="card-title text-primary">Szczegóły wybranej usługi</h5>
+                        <p class="card-text text-muted" id="serviceDesc"></p>
+                        <hr />
+                        <p class="card-text mb-1">
+                            <strong>Cena:</strong> <span id="servicePrice" class="text-success fw-bold"></span> zł
+                        </p>
+                        <p class="card-text">
+                            <strong>Czas trwania:</strong> <span id="serviceDuration"></span> min
+                        </p>
+                    </div>
+                </div>
+            </div>
             <div class="form-group">
-                <input type="submit" value="Utwórz" class="btn btn-sm btn-pastel-blue" />
+                <input type="submit" value="Utwórz" class="btn-hover color-10 w-100" />
             </div>
         </form>
     </div>
@@ -47,5 +64,39 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        const serviceSelect = document.getElementById('ServiceId');
+        const detailsCard = document.getElementById('serviceDetailsCard');
+
+        function fetchServiceDetails() {
+            const id = serviceSelect.value;
+
+            if (!id) {
+                detailsCard.style.display = 'none';
+                return;
+            }
+            fetch('/Service/GetServiceDetails/' + id)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('serviceDesc').innerText = data.description;
+                    document.getElementById('servicePrice').innerText = data.price.toFixed(2); 
+                    document.getElementById('serviceDuration').innerText = data.duration;
+
+                    const imgContainer = document.getElementById('serviceImageContainer');
+                    if (data.imagePath) {
+                        imgContainer.innerHTML = `<img src="/images/${data.imagePath}" class="img-fluid rounded" alt="Zdjęcie usługi" style="max-height: 120px; object-fit: cover; width: 100%;" />`;
+                    } else {
+                        imgContainer.innerHTML = '<span class="text-muted small">Brak zdjęcia</span>';
+                    }
+                    detailsCard.style.display = 'flex';
+                })
+                .catch(error => console.error('Błąd pobierania danych:', error));
+        }
+        serviceSelect.addEventListener('change', fetchServiceDetails);
+        fetchServiceDetails();
+    </script>
 }
