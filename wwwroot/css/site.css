@@ -30,21 +30,12 @@ h1, h2, h3, h4, h5, h6 {
     color: #ffffff !important;
 }
 
-.btn-pastel-blue {
-    background-color: #a7c7e7; 
-    color: #ffffff;
-    border: none; 
-    transition: 0.3s; 
-}
-.btn-pastel-blue:hover {
-    background-color: #8da9c4;
-    color: #ffffff;
-}
 .card, .table {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
     color: #ffffff !important;
     border: none;
     border-radius: 8px;
+    backdrop-filter: blur(8px);
 }
 .table td, .table th {
     color: #ffffff !important;
@@ -107,4 +98,84 @@ h1, h2, h3, h4, h5, h6 {
 .btn-hover2.color-10 {
     background-image: linear-gradient(to right, #e882aa, #efa08b, #f56d95, #f9b862);
     box-shadow: 0 2px 4px 0 rgba(236, 116, 149, 0.3);
+}
+
+
+a {
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+a:hover {
+    color: #f4c2eaff;
+    font-weight: bold;
+}
+
+#servicePrice {
+    color: #f4c2eaff;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff !important; 
+    transition: all 0.3s ease-in-out; 
+}
+
+
+.navbar-nav .nav-link:hover {
+    color: #f4c2ea !important;
+    font-weight: bold;
+}
+
+.form-control {
+    background-color: rgb(255, 255, 255, 0.50) !important;
+    border: none;
+    border-radius: 8px;
+    color: #333 !important; 
+}
+
+
+.form-control:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.text-responsive-nowrap {
+    white-space: normal;
+}
+
+.home-text {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    opacity: 0.95;
+}
+
+.glass-panel {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem; 
+    height: 100%; 
+}
+.glass-panel-text {
+    font-size: 0.95rem;
+}
+.btn-home {
+    font-size: 1.2rem;
+}
+
+.home-image-rounded {
+    border-radius: 20px;
+    max-height: 480px;
+    width: 100%;
+    object-fit: cover;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3) !important;
+}
+
+@media (min-width: 768px) {
+.text-responsive-nowrap {
+    white-space: nowrap !important;
+}
 }

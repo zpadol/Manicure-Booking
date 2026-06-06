@@ -25,25 +25,25 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Service" asp-action="Index">❀ Usługi i Cennik</a>
+                            <a class="nav-link" asp-area="" asp-controller="Service" asp-action="Index">❀ Usługi i Cennik</a>
                         </li>
 
                         @if (User.Identity != null && User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item ms-auto">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Appointment" asp-action="Index">❀ Zarządzanie wizytami</a>
+                            <li class="nav-item ms-sm-auto">
+                                <a class="nav-link" asp-area="" asp-controller="Appointment" asp-action="Index">❀ Zarządzanie wizytami</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Logout">❀ Wyloguj się</a>
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">❀ Wyloguj się</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Appointment" asp-action="Create">❀ Umów się na wizytę!</a>
+                                <a class="nav-link" asp-area="" asp-controller="Appointment" asp-action="Create">❀ Umów się na wizytę!</a>
                             </li>
-                            <li class="nav-item ms-auto">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Login">❀ Zaloguj do panelu</a>
+                            <li class="nav-item ms-sm-auto">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">❀ Zaloguj do panelu</a>
                             </li>
                         }
                     </ul>

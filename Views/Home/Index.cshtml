@@ -1,5 +1,58 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Strona główna";
 }
 
+<div class="container py-5">
+    <div class="row align-items-center text-white">
 
+        <div class="col-md-8 pe-md-5 mb-5 mb-md-0">
+            <h2 class="fw-bold mb-4">⋆.˚✾ Witaj w ManiSpa ✾⋆.˚</h2>
+
+            <p class="lead mb-4 home-text">
+                Twój wyjątkowy salon urody i profesjonalnej stylizacji paznokci. Dbamy o to, aby każda wizyta u nas była chwilą relaksu, a Twoje dłonie wyglądały zjawiskowo. Oferujemy najwyższej jakości manicure hybrydowy, przedłużanie żelowe oraz unikalne, ręcznie malowane zdobienia dopasowane do Twojej osobowości.
+            </p>
+
+            <div class="row g-3 mb-5">
+                <div class="col-sm-4">
+                    <div class="glass-panel">
+                        <h5 class="fw-bold mb-2">Lokalizacja</h5>
+                        <p class="mb-0 opacity-75 glass-panel-text">
+                            ul. Rostafińskiego 15<br />
+                            30-072 Kraków
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="glass-panel">
+                        <h5 class="fw-bold mb-2">Kontakt</h5>
+                        <p class="mb-0 opacity-75 glass-panel-text">
+                            Tel: +48 123 456 789<br />
+                            E-mail: salon@manispa.pl
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="glass-panel">
+                        <h5 class="fw-bold mb-2">Godziny otwarcia</h5>
+                        <p class="mb-0 opacity-75 glass-panel-text">
+                            poniedziałek - piątek<br />
+                            8:00 - 16:00
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <a asp-controller="Appointment" asp-action="Create" class="btn-hover color-10 w-100">
+                    Umów się na wizytę!
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4 text-center">
+            <img src="~/images/salon.jpg" class="img-fluid home-image-rounded" alt="Nasz Salon" />
+        </div>
+
+    </div>
+</div>

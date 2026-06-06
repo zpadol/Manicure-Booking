@@ -11,47 +11,48 @@
         <a asp-action="Create" class="btn-hover color-10">Dodaj nową usługę</a>
         </p>
     }
-
-<table class="table align-middle">
-    <thead>
-        <tr>
-            <th>Zdjęcie</th>
-            <th>@Html.DisplayNameFor(model => model.Name)</th>
-            <th>@Html.DisplayNameFor(model => model.Description)</th>
-            <th>@Html.DisplayNameFor(model => model.Price)</th>
-            <th>@Html.DisplayNameFor(model => model.DurationInMinutes)</th>
-            <th>Akcje</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @if (!string.IsNullOrEmpty(item.ImagePath))
-                    {
-                        <img src="~/images/@item.ImagePath" style="width:100px; border-radius: 8px;" alt="Zdjęcie" />
-                    }
-                </td>
-                <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                <td>@Html.DisplayFor(modelItem => item.DurationInMinutes)</td>
-                <td>
-                    @if (User.Identity != null && User.Identity.IsAuthenticated)
-                    {
-                        <div class="d-flex flex-column gap-2">
-                            <a asp-action="Edit" asp-route-id="@item.ServiceId" class="btn-hover btn-hover2 color-10">Edytuj</a>
-                            <a asp-action="Details" asp-route-id="@item.ServiceId" class="btn-hover btn-hover2 color-10">Szczegóły</a>
-                            <a asp-action="Delete" asp-route-id="@item.ServiceId" class="btn-hover btn-hover2 color-10">Usuń</a>
-                        </div>
-                    }
-                    else
-                    {
-                        <a asp-action="Details" asp-route-id="@item.ServiceId" class="btn-hover btn-hover2 color-10">Szczegóły</a>
-                    }
-                </td>
+<div class="table-responsive">
+    <table class="table align-middle">
+        <thead>
+            <tr class="text-center align-middle">
+                <th>Zdjęcie</th>
+                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                <th class="d-none d-md-table-cell" style="width: 40%;">@Html.DisplayNameFor(model => model.Description)</th>
+                <th class="text-responsive-nowrap">@Html.DisplayNameFor(model => model.Price)</th>
+                <th class="text-responsive-nowrap">@Html.DisplayNameFor(model => model.DurationInMinutes)</th>
+                <th>Akcje</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ImagePath))
+                        {
+                            <img src="~/images/@item.ImagePath" style="width:100px; border-radius: 8px;" alt="Zdjęcie" />
+                        }
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td class="align-middle d-none d-md-table-cell">@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DurationInMinutes)</td>
+                    <td>
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <div class="d-flex flex-column gap-2">
+                                <a asp-action="Edit" asp-route-id="@item.ServiceId" class="btn-hover btn-hover2 color-10">Edytuj</a>
+                                <a asp-action="Details" asp-route-id="@item.ServiceId" class="btn-hover btn-hover2 color-10">Szczegóły</a>
+                                <a asp-action="Delete" asp-route-id="@item.ServiceId" class="btn-hover btn-hover2 color-10">Usuń</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <a asp-action="Details" asp-route-id="@item.ServiceId" class="btn-hover btn-hover2 color-10">Szczegóły</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

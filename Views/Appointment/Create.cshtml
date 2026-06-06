@@ -7,8 +7,8 @@
 <h1>Zaplanuj wizytę</h1>
 <h4>Podaj dane:</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row justify-content-center">
+    <div class="col-md-8 mx-auto">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -37,14 +37,14 @@
             </div>
             <div id="serviceDetailsCard" class="card mb-3 border-primary" style="display: none;">
                 <div class="card-body row">
-                    <div class="col-md-4 d-flex align-items-center justify-content-center" id="serviceImageContainer">
+                    <div class="col-md-5 d-flex align-items-center justify-content-center" id="serviceImageContainer">
                     </div>
-                    <div class="col-md-8">
-                        <h5 class="card-title text-primary">Szczegóły wybranej usługi</h5>
-                        <p class="card-text text-muted" id="serviceDesc"></p>
+                    <div class="col-md-7">
+                        <h5 class="card-title"><strong>Szczegóły wybranej usługi</strong></h5>
+                        <p class="card-text" id="serviceDesc"></p>
                         <hr />
-                        <p class="card-text mb-1">
-                            <strong>Cena:</strong> <span id="servicePrice" class="text-success fw-bold"></span> zł
+                        <p class="card-text">
+                            <strong>Cena:</strong> <span id="servicePrice"></span> zł
                         </p>
                         <p class="card-text">
                             <strong>Czas trwania:</strong> <span id="serviceDuration"></span> min
@@ -60,7 +60,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Wróć do lity usług</a>
+    <a asp-action="Index">← Powrót do listy</a>
 </div>
 
 @section Scripts {
@@ -88,7 +88,7 @@
 
                     const imgContainer = document.getElementById('serviceImageContainer');
                     if (data.imagePath) {
-                        imgContainer.innerHTML = `<img src="/images/${data.imagePath}" class="img-fluid rounded" alt="Zdjęcie usługi" style="max-height: 120px; object-fit: cover; width: 100%;" />`;
+                       imgContainer.innerHTML = `<img src="/images/${data.imagePath}" class="img-fluid shadow" alt="Zdjęcie usługi" style="width: 100%; height: 250px; object-fit: cover; border-radius: 12px;" />`;
                     } else {
                         imgContainer.innerHTML = '<span class="text-muted small">Brak zdjęcia</span>';
                     }
