@@ -49,8 +49,13 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ServiceId" class="btn-hover btn-hover2 color-10">Edytuj</a> 
+    @if (User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.ServiceId" class="btn-hover btn-hover2 color-10">Edytuj</a>
+    }
+    
 </div>
+<br />
 <div>
     <a asp-action="Index">← Powrót do listy</a>
 </div>

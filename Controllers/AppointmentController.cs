@@ -90,7 +90,8 @@ namespace ManicureBooking.Controllers
             {
                 _context.Appointments.Add(appointment);
                 _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Wizyta została pomyślnie zarezerwowana! Do zobaczenia w ManiSpa";
+                return RedirectToAction("Index", "Home");
             }
             ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "Name", appointment.ServiceId);
             return View(appointment);
