@@ -21,7 +21,7 @@ namespace ManicureBooking.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            var appointments = _context.Appointments.Include(a => a.Service).ToList();
+            var appointments = _context.Appointments.Include(a => a.Service).ToList().OrderBy(a => a.AppointmentTime); ;
             return View(appointments);
         }
 
